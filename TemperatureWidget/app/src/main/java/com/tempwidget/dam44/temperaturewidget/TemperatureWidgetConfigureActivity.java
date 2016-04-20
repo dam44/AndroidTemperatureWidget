@@ -7,24 +7,26 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.Spinner;
 
 /**
  * The configuration screen for the {@link TemperatureWidget TemperatureWidget} AppWidget.
  */
-public class TemperatureWidgetConfigureActivity extends Activity {
+public class TemperatureWidgetConfigureActivity extends Activity implements AdapterView.OnItemSelectedListener {
 
     private static final String PREFS_NAME = "com.tempwidget.dam44.temperaturewidget.TemperatureWidget";
     private static final String PREF_PREFIX_KEY = "appwidget_";
     int mAppWidgetId = AppWidgetManager.INVALID_APPWIDGET_ID;
-    EditText mAppWidgetText;
+    //EditText mAppWidgetText;
     View.OnClickListener mOnClickListener = new View.OnClickListener() {
         public void onClick(View v) {
             final Context context = TemperatureWidgetConfigureActivity.this;
 
-            // When the button is clicked, store the string locally
-            String widgetText = mAppWidgetText.getText().toString();
-            saveTitlePref(context, mAppWidgetId, widgetText);
+            setTemperatureMeasurement();
 
             // It is the responsibility of the configuration activity to update the app widget
             AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
@@ -37,6 +39,14 @@ public class TemperatureWidgetConfigureActivity extends Activity {
             finish();
         }
     };
+
+    private void setTemperatureMeasurement() {
+        if (((RadioButton)findViewById(R.id.rb_fah)).isChecked()) {
+            GlobalVars.getInstance().tempMode = TempMode.FAHRENHEIT;
+        } else {
+            GlobalVars.getInstance().tempMode = TempMode.CELSIUS;
+        }
+    }
 
     public TemperatureWidgetConfigureActivity() {
         super();
@@ -76,7 +86,7 @@ public class TemperatureWidgetConfigureActivity extends Activity {
         setResult(RESULT_CANCELED);
 
         setContentView(R.layout.temperature_widget_configure);
-        mAppWidgetText = (EditText) findViewById(R.id.appwidget_text);
+        //mAppWidgetText = (EditText) findViewById(R.id.appwidget_text);
         findViewById(R.id.add_button).setOnClickListener(mOnClickListener);
 
         // Find the widget id from the intent.
@@ -93,7 +103,27 @@ public class TemperatureWidgetConfigureActivity extends Activity {
             return;
         }
 
-        mAppWidgetText.setText(loadTitlePref(TemperatureWidgetConfigureActivity.this, mAppWidgetId));
+        //mAppWidgetText.setText(loadTitlePref(TemperatureWidgetConfigureActivity.this, mAppWidgetId));
+
+        Spinner spnImports = (Spinner) findViewById(R.id.spn_imports);
+        spnImports.setOnItemSelectedListener(this);
+
+        ArrayAdapter<Import> dataAdapter = new ArrayAdapter<Import>(this, android.R.layout.simple_spinner_item, GlobalVars.getInstance().IMPORTS);
+
+        spnImports.setAdapter(dataAdapter);
+
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+        Import item = (Import)adapterView.getItemAtPosition(i);
+
+        GlobalVars.getInstance().IMPORT = item;
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
     }
 }
 

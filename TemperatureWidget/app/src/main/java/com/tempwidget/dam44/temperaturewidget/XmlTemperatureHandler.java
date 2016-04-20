@@ -20,7 +20,7 @@ public class XmlTemperatureHandler extends XmlHandler {
 
     public Temperature[][] importTemperatures() {
 
-        NodeList nodelist = xmlReader(GlobalVars.IMPORTS[GlobalVars.IMPORTNO], "temps");
+        NodeList nodelist = xmlReader(GlobalVars.getInstance().IMPORT.url, "temps");
         Element root = (Element) nodelist.item(0);
         String curtimeString = root.getElementsByTagName("currentTime").item(0).getFirstChild().getNodeValue();
         Time curDate = new Time();
@@ -50,7 +50,7 @@ public class XmlTemperatureHandler extends XmlHandler {
                 //Don't bother with these values as they are not helpful
                 //and are unrealistic as in a real life situation we could not
                 //see values in the future.
-                if (temps == null || temps.length < temp.hour) {
+                if (temps == null || temps.length <= temp.hour) {
                     break;
                 }
 

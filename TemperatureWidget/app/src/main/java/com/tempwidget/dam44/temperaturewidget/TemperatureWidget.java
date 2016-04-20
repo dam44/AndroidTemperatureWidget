@@ -25,6 +25,7 @@ public class TemperatureWidget extends AppWidgetProvider {
 
     public TemperatureWidget() {
         tempHandler = new TemperatureHandler();
+
     }
 
     static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,

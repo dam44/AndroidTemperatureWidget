@@ -42,7 +42,12 @@ public class Details {
     private int curTempPos;
 
     public Temperature getCurrentTemperature() {
-        return readings[curTime.getHours()][readings[curTime.getHours()].length - 1];
+        Temperature ret;
+        ret = readings[curTime.getHours()][readings[curTime.getHours()].length - 1];
+        if (GlobalVars.getInstance().tempMode == TempMode.FAHRENHEIT) {
+            ret.temp = Util.C2F(ret.temp);
+        }
+        return ret;
     }
 
     public Temperature averageTempLastHour() {
@@ -65,7 +70,9 @@ public class Details {
             e.printStackTrace();
             ret.temp = 0;
         }
-
+        if (GlobalVars.getInstance().tempMode == TempMode.FAHRENHEIT) {
+            ret.temp = Util.C2F(ret.temp);
+        }
         return ret;
 
     }
