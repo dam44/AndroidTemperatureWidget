@@ -1,5 +1,7 @@
 package com.tempwidget.dam44.temperaturewidget;
 
+import android.content.Context;
+import android.content.Intent;
 import android.util.Xml;
 
 import org.w3c.dom.NodeList;
@@ -11,18 +13,24 @@ import java.util.ArrayList;
  */
 public class TemperatureHandler {
 
-    private ArrayList<Temperature> temperatures;
+    TemperatureWidget widget;
+    Context context;
 
     public TemperatureHandler() {
-        temperatures = new ArrayList<Temperature>();
+
     }
 
-    public void refresh() {
+    public void refresh(TemperatureWidget widget, Context context) {
+        this.widget = widget;
+        this.context = context;
        new TempRefreshTask(this).execute();
     }
 
-    public void finishRefresh(ArrayList<Temperature> temps) {
-        temperatures = temps;
+    public void finishRefresh(Temperature[][] temps) {
+        if (this.widget == null) return;
+        Details.getInstance().refresh(temps);
+        this.widget.triggerUpdate(context);
+        //Temperature temp = Details.getInstance().averageTempLastHour();
     }
 
 

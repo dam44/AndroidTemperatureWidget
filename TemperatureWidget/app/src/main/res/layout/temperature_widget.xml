@@ -1,21 +1,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#bb3b593d"
-    android:padding="@dimen/widget_margin">
-
-    <TextView
-        android:id="@+id/appwidget_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:layout_margin="8dp"
-        android:contentDescription="@string/appwidget_text"
-        android:text="@string/appwidget_text"
-        android:textColor="#ffffff"
-        android:textSize="24sp"
-        android:textStyle="bold|italic" />
+    android:background="#5dc10003"
+    android:padding="@dimen/widget_margin"
+    android:id="@+id/jk">
 
     <ImageButton
         android:layout_width="wrap_content"
@@ -34,5 +22,37 @@
         android:background="#00ffffff"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Time:"
+        android:textSize="14dp"
+        android:id="@+id/lb_curTime"
+        android:background="#00ffffff"
+        android:layout_marginEnd="49dp"
+        android:layout_above="@+id/lb_avgTemp"
+        android:layout_toStartOf="@+id/btnSettings" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Avg Temperature:"
+        android:textSize="14dp"
+        android:id="@+id/lb_avgTemp"
+        android:layout_centerVertical="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Temperature:"
+        android:textSize="14dp"
+        android:id="@+id/lb_curTemp"
+        android:layout_above="@+id/lb_avgTemp"
+        android:layout_alignEnd="@+id/lb_avgTemp" />
 
 </RelativeLayout>

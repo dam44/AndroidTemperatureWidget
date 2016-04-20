@@ -1,5 +1,7 @@
 package com.tempwidget.dam44.temperaturewidget;
 
+
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -12,5 +14,4 @@ public class GlobalVars {
     };
 
     public static int IMPORTNO = 0;
-    public static Date CURRENTTIME = null;
 }

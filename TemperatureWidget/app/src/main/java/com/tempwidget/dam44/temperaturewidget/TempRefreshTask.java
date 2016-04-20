@@ -11,7 +11,7 @@ public class TempRefreshTask extends AsyncTask<Void, Void, Void> {
 
     TemperatureHandler callback;
     XmlTemperatureHandler xmlTemp;
-    ArrayList<Temperature> temps;
+    Temperature[][] temps;
 
     public TempRefreshTask(TemperatureHandler callback) {
         super();
